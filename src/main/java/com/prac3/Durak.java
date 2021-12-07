@@ -7,6 +7,7 @@ import static java.util.Collections.shuffle;
 
 public class Durak {
     private ArrayList<Card> deck;
+    private char trump;
 
     public Durak(){
         this.deck = generateDeck();
@@ -66,11 +67,21 @@ public class Durak {
     }
 
     public boolean checkPlay(Card cardToPut, Card cardOnTheTable){
-        if(cardToPut.getSuit() == cardOnTheTable.getSuit() &&
+        if(((cardToPut.getSuit() == cardOnTheTable.getSuit()) ||
+                (cardToPut.getSuit() == this.trump)) &&
                 cardToPut.getValue() > cardOnTheTable.getValue())
             return true;
         else
             return false;
     }
-
+    public void setTrump(){
+        this.trump = this.deck.get(deck.size()-1).getSuit();
+        for (Card card : this.deck){
+            if(card.getSuit() == this.trump)
+                card.setTrumpSuit();
+        }
+    }
+    public char getTrumpSuit(){
+        return this.trump;
+    }
 }

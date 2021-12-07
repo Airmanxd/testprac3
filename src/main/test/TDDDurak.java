@@ -68,10 +68,12 @@ public class TDDDurak {
         char suit = durak.getTrumpSuit();
         System.out.println("Trump suit: " + suit);
         Card queenOfTrumpSuit = new Card("Q" + suit);
+        queenOfTrumpSuit.setTrumpSuit();
         Card kingOfSpades = new Card("KS");
         Card kingOfClubs = new Card("KC");
         Card kingOfDiamonds = new Card("KD");
         Card kingOfHearts = new Card("KH");
+        kingOfHearts.setTrumpSuit();
         assert(durak.checkPlay(queenOfTrumpSuit, kingOfClubs));
         assert(durak.checkPlay(queenOfTrumpSuit, kingOfSpades));
         assert(durak.checkPlay(queenOfTrumpSuit, kingOfDiamonds));
