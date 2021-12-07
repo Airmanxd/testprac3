@@ -52,4 +52,16 @@ public class Durak {
         shuffle(this.deck);
         shuffle(this.deck);
     }
+
+    public ArrayList<Card> getInitialSix(){
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.add(deck.remove(deck.size()-1));
+        cards.add(deck.remove(deck.size()-1));
+        cards.add(deck.remove(deck.size()-1));
+        cards.add(deck.remove(deck.size()-1));
+        cards.add(deck.remove(deck.size()-1));
+        cards.add(deck.remove(deck.size()-1));
+
+        return cards;
+    }
 }

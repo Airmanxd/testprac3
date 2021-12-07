@@ -44,9 +44,10 @@ public class TDDDurak {
     public void getInitialSixTest(){
         Durak durak = new Durak();
         durak.randomizeDeck();
-        Player player1 = new Player();
-        player1.setCards() = durak.getInitialSix();
+        Player player1 = new Player("Testname");
+        player1.setCards(durak.getInitialSix());
         assertEquals(6, player1.getCards().size());
+        assertEquals(30, durak.getDeck().size());
     }
 }
 
