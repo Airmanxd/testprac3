@@ -96,5 +96,8 @@ public class Durak {
             return true;
         }
     }
-    
+
+    public void replenishDeck(){
+        this.deck = generateDeck();
+    }
 }
