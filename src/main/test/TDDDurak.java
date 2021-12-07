@@ -1,8 +1,12 @@
-import com.prac3.Card;
+import com.prac3.*;
+import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class TDDDurak {
-    private main.java.com.prac3.Durak durak;
+    private Durak durak;
     @Test
     public void getCardTest(){
         Card queenOfSpades = new Card("QS");
@@ -14,6 +18,11 @@ public class TDDDurak {
         assert(queenOfSpades.toString().equals("QS"));
         assert(fourOfDiamonds.toString().equals("4D"));
     }
-
+    @Test
+    public void getDeck(){
+        List<Card> deck = durak.getDeck();
+        Assert.assertEquals(36, deck.size());
+        Assert.assertEquals(new HashSet<Card>(deck).size(), deck.size());
+    }
 }
 
