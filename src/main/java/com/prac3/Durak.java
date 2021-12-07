@@ -84,4 +84,17 @@ public class Durak {
     public char getTrumpSuit(){
         return this.trump;
     }
+
+    public boolean draw(Player player){
+        if(player.getCards().size() == 6 || this.deck.size() == 0)
+            return false;
+        else
+        {
+            ArrayList<Card> temp = player.getCards();
+            while(temp.size()<6 && this.deck.size() > 0)
+                temp.add(this.deck.remove(this.deck.size()-1));
+            return true;
+        }
+    }
+
 }
