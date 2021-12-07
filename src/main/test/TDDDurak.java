@@ -1,4 +1,4 @@
-import main.java.com.prac3.Card
+import com.prac3.Card;
 import org.junit.Test;
 
 public class TDDDurak {
@@ -14,6 +14,6 @@ public class TDDDurak {
         assert(queenOfSpades.toString().equals("QS"));
         assert(fourOfDiamonds.toString().equals("4D"));
     }
-    
+
 }
 
