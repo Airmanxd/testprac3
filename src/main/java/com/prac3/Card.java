@@ -31,7 +31,6 @@ public class Card {
             default:
                 this.valueChar = temp;
         }
-
         this.value = Integer.parseInt(temp);
     }
     @Override

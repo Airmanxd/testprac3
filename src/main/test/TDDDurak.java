@@ -20,6 +20,7 @@ public class TDDDurak {
     }
     @Test
     public void getDeck(){
+        Durak durak = new Durak();
         List<Card> deck = durak.getDeck();
         Assert.assertEquals(36, deck.size());
         Assert.assertEquals(new HashSet<Card>(deck).size(), deck.size());
