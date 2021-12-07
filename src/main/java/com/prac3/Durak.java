@@ -2,6 +2,7 @@ package com.prac3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import static java.util.Collections.shuffle;
 
@@ -100,4 +101,5 @@ public class Durak {
     public void replenishDeck(){
         this.deck = generateDeck();
     }
+
 }
