@@ -96,5 +96,5 @@ public class Durak {
             return true;
         }
     }
-
+    
 }

@@ -94,5 +94,14 @@ public class TDDDurak {
         assert(durak.draw(player1));
         assertEquals(6, player1.getCards().size());
     }
+    @Test
+    public void replenishDeckTest(){
+        Durak durak = new Durak();
+        durak.getInitialSix();
+        durak.getInitialSix();
+        assertEquals(24, durak.getDeck().size());
+        durak.replenishDeck();
+        assertEquals(36, durak.getDeck().size());
+    }
 }
 
