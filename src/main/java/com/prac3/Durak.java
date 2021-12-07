@@ -9,7 +9,7 @@ import static java.util.Collections.shuffle;
 public class Durak {
     private ArrayList<Card> deck;
     private char trump;
-
+    private int table = 0;
     public Durak(){
         this.deck = generateDeck();
     }
@@ -102,4 +102,11 @@ public class Durak {
         this.deck = generateDeck();
     }
 
+    public boolean throwAnother(Card card, Player player2){
+        if(this.table < player2.getCards().size()) {
+            table++;
+            return true;
+        }
+        else return false;
+    }
 }
