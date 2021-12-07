@@ -25,5 +25,18 @@ public class TDDDurak {
         Assert.assertEquals(36, deck.size());
         Assert.assertEquals(new HashSet<Card>(deck).size(), deck.size());
     }
+    @Test
+    public void RandomizeDeckTest(){
+        Durak durak = new Durak();
+        List<Card> deck = durak.getDeck();
+        durak.randomizeDeck();
+        List<Card> randomDeck = durak.getDeck();
+        boolean identical = true;
+        for (Integer i = 0; i < deck.size(); i++){
+            if(deck.get(i).toString().equals(randomDeck.get(i).toString()))
+                identical = false;
+        }
+        assert(!identical);
+    }
 }
 
