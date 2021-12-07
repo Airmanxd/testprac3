@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class TDDDurak {
     private Durak durak;
     @Test
@@ -22,8 +24,8 @@ public class TDDDurak {
     public void getDeck(){
         Durak durak = new Durak();
         List<Card> deck = durak.getDeck();
-        Assert.assertEquals(36, deck.size());
-        Assert.assertEquals(new HashSet<Card>(deck).size(), deck.size());
+        assertEquals(36, deck.size());
+        assertEquals(new HashSet<Card>(deck).size(), deck.size());
     }
     @Test
     public void RandomizeDeckTest(){
@@ -37,6 +39,14 @@ public class TDDDurak {
                 identical = false;
         }
         assert(!identical);
+    }
+    @Test
+    public void getInitialSixTest(){
+        Durak durak = new Durak();
+        durak.randomizeDeck();
+        Player player1 = new Player();
+        player1.setCards() = durak.getInitialSix();
+        assertEquals(6, player1.getCards().size());
     }
 }
 
