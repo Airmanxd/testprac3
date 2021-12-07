@@ -64,4 +64,13 @@ public class Durak {
 
         return cards;
     }
+
+    public boolean checkPlay(Card cardToPut, Card cardOnTheTable){
+        if(cardToPut.getSuit() == cardOnTheTable.getSuit() &&
+                cardToPut.getValue() > cardOnTheTable.getValue())
+            return true;
+        else
+            return false;
+    }
+
 }

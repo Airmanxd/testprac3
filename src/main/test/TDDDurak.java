@@ -57,8 +57,8 @@ public class TDDDurak {
         Card aceOfSpades = new Card("AS");
         Card threeOfSpades = new Card("3S");
         Card kingOfDiamonds = new Card("KD");
-        assert(durak.checkPlay(queenOfSpades,aceOfSpades));
-        assert(durak.checkPlay(kingOfDiamonds, queenOfSpades));
+        assert(!durak.checkPlay(queenOfSpades, aceOfSpades));
+        assert(!durak.checkPlay(kingOfDiamonds, queenOfSpades));
         assert(durak.checkPlay(queenOfSpades, threeOfSpades));
     }
 }
