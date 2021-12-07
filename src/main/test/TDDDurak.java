@@ -2,6 +2,7 @@ import com.prac3.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -78,6 +79,20 @@ public class TDDDurak {
         assert(durak.checkPlay(queenOfTrumpSuit, kingOfSpades));
         assert(durak.checkPlay(queenOfTrumpSuit, kingOfDiamonds));
         assert(!durak.checkPlay(queenOfTrumpSuit, kingOfHearts));
+    }
+    @Test
+    public void playerDrawCardTest(){
+        Durak durak = new Durak();
+        durak.randomizeDeck();
+        Player player1 = new Player("Testname");
+        player1.setCards(durak.getInitialSix());
+        assert(!durak.draw(player1));
+        ArrayList<Card> test = new ArrayList<>();
+        test.add(new Card("KH"));
+        test.add(new Card("VH"));
+        player1.setCards(test);
+        assert(durak.draw(player1));
+        assertEquals(6, player1.getCards().size());
     }
 }
 
