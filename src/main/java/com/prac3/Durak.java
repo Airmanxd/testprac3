@@ -3,6 +3,8 @@ package com.prac3;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.shuffle;
+
 public class Durak {
     private ArrayList<Card> deck;
 
@@ -44,5 +46,10 @@ public class Durak {
             deck.add(new Card(temp+'H'));
         }
         return deck;
+    }
+
+    public void randomizeDeck(){
+        shuffle(this.deck);
+        shuffle(this.deck);
     }
 }
