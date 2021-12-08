@@ -2,6 +2,10 @@ import com.prac3.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -136,6 +140,8 @@ public class TDDDurak {
         test.add(new Card("KH"));
         test.add(new Card("VH"));
         player1.setCards(test);
+        ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+        System.setIn(in);
         assertEquals(test.get(0), durak.turnAttack(player1));
     }
 }

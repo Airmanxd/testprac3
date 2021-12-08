@@ -125,4 +125,16 @@ public class Durak {
             System.out.print(card + "");
         }
     }
+    public Card turnAttack(Player player1){
+        this.printUI(player1);
+
+        Scanner in = new Scanner(System.in);
+        int ind = in.nextInt() - 1;
+        while(ind >= player1.getCards().size()-1){
+            System.out.println("The card you chose doesn't exist !! Try again!");
+            ind = in.nextInt() - 1;
+        }
+
+        return player1.getCards().remove(ind);
+    }
 }
