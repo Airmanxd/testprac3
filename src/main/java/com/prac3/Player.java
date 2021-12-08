@@ -1,6 +1,7 @@
 package com.prac3;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private ArrayList<Card> cards;
@@ -18,5 +19,8 @@ public class Player {
     }
     public String getName(){
         return name;
+    }
+    public void getAll(List<Card> pile){
+        this.cards.addAll(pile);
     }
 }
