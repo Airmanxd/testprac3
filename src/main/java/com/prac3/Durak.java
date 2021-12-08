@@ -160,4 +160,24 @@ public class Durak {
         }
         return player2.getCards().remove(ind);
     }
+    public Card anotherAttack(Player player1, List<Integer>values, List<Card> current){
+        this.printUI(player1);
+        this.printCurrentTable(current);
+        System.out.println("(Input 40 to end turn)");
+        Scanner in = new Scanner(System.in);
+        int ind = in.nextInt() - 1;
+
+        if (ind == 40)
+            return null;
+
+        while(ind >= player1.getCards().size()-1){
+            System.out.println("The card you chose doesn't exist !! Try again!");
+            ind = in.nextInt() - 1;
+            while(!throwAnother(player1.getCards().get(ind), values)){
+                System.out.println("Can't use this card! Try again!\nOr take all (enter 50)");
+                ind = in.nextInt() - 1;
+            }
+        }
+        return player1.getCards().remove(ind);
+    }
 }
