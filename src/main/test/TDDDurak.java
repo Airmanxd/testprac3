@@ -110,5 +110,22 @@ public class TDDDurak {
         testAdd.add(7);
         assert(durak.throwAnother(new Card("7D"), testAdd));
     }
+    @Test
+    public void getAllTest(){
+        Durak durak = new Durak();
+        ArrayList<Card> test = new ArrayList<>();
+        test.add(new Card("KH"));
+        test.add(new Card("VH"));
+
+        ArrayList<Card> test2 = new ArrayList<>();
+        Card AH = new Card("AH");
+        Card QH = new Card("QH");
+        test2.add(AH);
+        test2.add(QH);
+        Player player1 = new Player("Testname");
+        player1.setCards(test);
+        player1.getAll(test2);
+        assert(player1.getCards().contains(AH) && player1.getCards().contains(QH));
+    }
 }
 
