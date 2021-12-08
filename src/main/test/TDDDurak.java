@@ -144,5 +144,20 @@ public class TDDDurak {
         System.setIn(in);
         assertEquals(test.get(0), durak.turnAttack(player1));
     }
+    @Test
+    public void testDefense(){
+        Durak durak = new Durak();
+        durak.randomizeDeck();
+        Player player1 = new Player("Testname");
+        ArrayList<Card> test = new ArrayList<>();
+        test.add(new Card("KH"));
+        test.add(new Card("VC"));
+        player1.setCards(test);
+        ByteArrayInputStream in = new ByteArrayInputStream("1".getBytes());
+        System.setIn(in);
+        List<Card> attack = new ArrayList<>();
+        attack.add(new Card("10H"));
+        assertEquals(test.get(0), durak.defend(player1, attack));
+    }
 }
 
