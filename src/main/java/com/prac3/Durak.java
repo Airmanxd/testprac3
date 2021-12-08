@@ -137,4 +137,27 @@ public class Durak {
 
         return player1.getCards().remove(ind);
     }
+    public Card defend(Player player2, List<Card> current){
+        this.printUI(player2);
+        Card attack = current.get(current.size()-1);
+        this.printCurrentTable(current);
+        System.out.println("Card to beat: " + attack);
+        System.out.println("(Input 50 to take all)");
+        Scanner in = new Scanner(System.in);
+        int ind = in.nextInt() - 1;
+
+        if(ind == 50)
+            return null;
+
+        while(ind >= player2.getCards().size()-1){
+            System.out.println(String.format("The card you chose doesn't exist!! Try again!\n(Only numbers %d - %d can be chosen",
+                    1, player2.getCards().size()));
+            ind = in.nextInt() - 1;
+            while(checkPlay(player2.getCards().get(ind), attack)){
+                System.out.println("Can't use this card! Try again!\nOr take all (enter 50)");
+                ind = in.nextInt() - 1;
+            }
+        }
+        return player2.getCards().remove(ind);
+    }
 }
