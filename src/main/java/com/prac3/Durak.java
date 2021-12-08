@@ -110,4 +110,19 @@ public class Durak {
         else return false;
     }
 
+    public void printUI(Player player1){
+        System.out.println(player1.getName() + ", your turn!");
+        System.out.print("Your deck: ");
+        for(Card card : player1.getCards()){
+            System.out.print(card + " ");
+        }
+        System.out.println(String.format("Choose your card (input the number of the card from left to right (%d - %d))",
+                1, player1.getCards().size()));
+    }
+    public void printCurrentTable(List<Card> current){
+        System.out.println("Current cards on the table: ");
+        for (Card card : current){
+            System.out.print(card + "");
+        }
+    }
 }
