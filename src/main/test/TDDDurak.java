@@ -127,5 +127,16 @@ public class TDDDurak {
         player1.getAll(test2);
         assert(player1.getCards().contains(AH) && player1.getCards().contains(QH));
     }
+    @Test
+    public void firstAttackTest(){
+        Durak durak = new Durak();
+        durak.randomizeDeck();
+        Player player1 = new Player("Testname");
+        ArrayList<Card> test = new ArrayList<>();
+        test.add(new Card("KH"));
+        test.add(new Card("VH"));
+        player1.setCards(test);
+        assertEquals(test.get(0), durak.turnAttack(player1));
+    }
 }
 
