@@ -179,17 +179,21 @@ public class Durak {
 
     private void addition(List<Card> pool, List<Integer> values, Card temp){
         pool.add(temp);
-        if(temp.getValue() > 100)
+        if(temp.getValue() > 100) {
             values.add(temp.getValue() - 100);
-        else
             values.add(temp.getValue());
+        }
+        else{
+            values.add(temp.getValue() + 100);
+            values.add(temp.getValue());
+        }
     }
 
     public Player game(Player player1, Player player2){
         this.randomizeDeck();
+        this.setTrump();
         player1.setCards(this.getInitialSix());
         player2.setCards(this.getInitialSix());
-        this.setTrump();
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
@@ -218,6 +222,9 @@ public class Durak {
                 table = 0;
                 if(!draw(attacker) && attacker.getCards().size() == 0)
                     return attacker;
+
+                currentPool.clear();
+                canAdd.clear();
             }
             while(table < max_table){
                 temp = anotherAttack(attacker,canAdd, currentPool);

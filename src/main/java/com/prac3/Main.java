@@ -10,6 +10,7 @@ public class Main {
         System.out.print("Player2 please enter your name: ");
         Player player2 = new Player(in.nextLine());
         Durak durak = new Durak();
-        durak.game(player1, player2);
+        Player winner = durak.game(player1, player2);
+        System.out.println("Congratulations, " + winner.getName()+ "!");
     }
 }
