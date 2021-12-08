@@ -102,11 +102,12 @@ public class Durak {
         this.deck = generateDeck();
     }
 
-    public boolean throwAnother(Card card, Player player2){
-        if(this.table < player2.getCards().size()) {
+    public boolean throwAnother(Card card, List<Integer> canAdd){
+        if(canAdd.contains(card.getValue())) {
             table++;
             return true;
         }
         else return false;
     }
+
 }

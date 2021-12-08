@@ -106,14 +106,9 @@ public class TDDDurak {
     @Test
     public void throwAnotherTest(){
         Durak durak = new Durak();
-        Player player1 = new Player("Testname");
-        ArrayList<Card> test = new ArrayList<>();
-        test.add(new Card("KH"));
-        test.add(new Card("VH"));
-        player1.setCards(test);
-        Player player2 = new Player("Testname2");
-        player2.setCards(test);
-        assert(durak.throwAnother(new Card("7D"), player2));
+        ArrayList<Integer> testAdd = new ArrayList<>();
+        testAdd.add(7);
+        assert(durak.throwAnother(new Card("7D"), testAdd));
     }
 }
 
