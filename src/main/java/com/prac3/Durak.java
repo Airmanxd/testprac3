@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.util.Collections.max;
 import static java.util.Collections.shuffle;
 
 public class Durak {
@@ -68,15 +69,15 @@ public class Durak {
     }
 
     public boolean checkPlay(Card cardToPut, Card cardOnTheTable){
-        if(((cardToPut.getSuit() == cardOnTheTable.getSuit()) ||
-                (cardToPut.getSuit() == this.trump)) &&
-                cardToPut.getValue() > cardOnTheTable.getValue())
+        if(cardToPut.getValue()>cardOnTheTable.getValue() &&
+                (cardToPut.getSuit()==trump ||
+                        cardToPut.getSuit() == cardOnTheTable.getSuit()))
             return true;
         else
             return false;
     }
     public void setTrump(){
-        this.trump = this.deck.get(deck.size()-1).getSuit();
+        this.trump = this.deck.get(0).getSuit();
         for (Card card : this.deck){
             if(card.getSuit() == this.trump)
                 card.setTrumpSuit();
@@ -87,7 +88,7 @@ public class Durak {
     }
 
     public boolean draw(Player player){
-        if(player.getCards().size() == 6 || this.deck.size() == 0)
+        if(player.getCards().size() >= 6 || this.deck.size() == 0)
             return false;
         else
         {
@@ -112,17 +113,20 @@ public class Durak {
 
     public void printUI(Player player1){
         System.out.println(player1.getName() + ", your turn!");
+        System.out.println("Trump suit: " + this.trump);
         System.out.print("Your deck: ");
+        Integer i = 1;
         for(Card card : player1.getCards()){
-            System.out.print(card + " ");
+            System.out.print(i.toString() + ")" + card + " ");
+            i++;
         }
-        System.out.println(String.format("Choose your card (input the number of the card from left to right (%d - %d))",
+        System.out.println(String.format("\nChoose your card (input the number of the card from left to right (%d - %d))",
                 1, player1.getCards().size()));
     }
     public void printCurrentTable(List<Card> current){
         System.out.println("Current cards on the table: ");
         for (Card card : current){
-            System.out.print(card + "");
+            System.out.print(card + " ");
         }
     }
     public Card turnAttack(Player player1){
@@ -130,7 +134,7 @@ public class Durak {
 
         Scanner in = new Scanner(System.in);
         int ind = in.nextInt() - 1;
-        while(ind >= player1.getCards().size()-1){
+        while(ind > player1.getCards().size()-1){
             System.out.println("The card you chose doesn't exist !! Try again!");
             ind = in.nextInt() - 1;
         }
@@ -141,23 +145,19 @@ public class Durak {
         this.printUI(player2);
         Card attack = current.get(current.size()-1);
         this.printCurrentTable(current);
-        System.out.println("Card to beat: " + attack);
+        System.out.println("\nCard to beat: " + attack);
         System.out.println("(Input 50 to take all)");
         Scanner in = new Scanner(System.in);
         int ind = in.nextInt() - 1;
 
-        if(ind == 50)
-            return null;
-
-        while(ind >= player2.getCards().size()-1){
-            System.out.println(String.format("The card you chose doesn't exist!! Try again!\n(Only numbers %d - %d can be chosen",
+        while((ind > player2.getCards().size()-1 || !checkPlay(player2.getCards().get(ind), attack)) && ind!=49){
+            System.out.println(String.format("Can't use this card! Try again!\nOr take all (enter 50)",
                     1, player2.getCards().size()));
             ind = in.nextInt() - 1;
-            while(checkPlay(player2.getCards().get(ind), attack)){
-                System.out.println("Can't use this card! Try again!\nOr take all (enter 50)");
-                ind = in.nextInt() - 1;
-            }
         }
+        if(ind == 49)
+            return null;
+
         return player2.getCards().remove(ind);
     }
     public Card anotherAttack(Player player1, List<Integer>values, List<Card> current){
@@ -167,17 +167,82 @@ public class Durak {
         Scanner in = new Scanner(System.in);
         int ind = in.nextInt() - 1;
 
-        if (ind == 40)
+        while((ind > player1.getCards().size()-1 || !throwAnother(player1.getCards().get(ind), values)) && ind!=39){
+            System.out.println("Can't use this card! Try again!\nOr end turn (enter 40)");
+            ind = in.nextInt() - 1;
+        }
+        if (ind == 39)
             return null;
 
-        while(ind >= player1.getCards().size()-1){
-            System.out.println("The card you chose doesn't exist !! Try again!");
-            ind = in.nextInt() - 1;
-            while(!throwAnother(player1.getCards().get(ind), values)){
-                System.out.println("Can't use this card! Try again!\nOr take all (enter 50)");
-                ind = in.nextInt() - 1;
-            }
-        }
         return player1.getCards().remove(ind);
+    }
+
+    private void addition(List<Card> pool, List<Integer> values, Card temp){
+        pool.add(temp);
+        if(temp.getValue() > 100)
+            values.add(temp.getValue() - 100);
+        else
+            values.add(temp.getValue());
+    }
+
+    public Player game(Player player1, Player player2){
+        this.randomizeDeck();
+        player1.setCards(this.getInitialSix());
+        player2.setCards(this.getInitialSix());
+        this.setTrump();
+        List<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        List<Card> currentPool = new ArrayList<>();
+        List<Integer> canAdd = new ArrayList<>();
+        Card temp;
+        int i = 0;
+        int ind = 0;
+        int max_table = 0;
+        while(true){
+            ind = i%2;
+            table = 0;
+            Player attacker = players.get(ind);
+            Player defender = players.get((ind+1)%2);
+            max_table = defender.getCards().size();
+            while(true) {
+                temp = turnAttack(attacker);
+                addition(currentPool, canAdd, temp);
+                table++;
+                temp = defend(defender, currentPool);
+                if (temp != null) {
+                    addition(currentPool, canAdd, temp);
+                    break;
+                }
+                defender.getAll(currentPool);
+                table = 0;
+                if(!draw(attacker) && attacker.getCards().size() == 0)
+                    return attacker;
+            }
+            while(table < max_table){
+                temp = anotherAttack(attacker,canAdd, currentPool);
+                if(temp == null){
+                    i++;
+                    break;
+                }
+                addition(currentPool, canAdd, temp);
+
+                table++;
+
+                temp = defend(defender, currentPool);
+                if(temp == null){
+                    defender.getAll(currentPool);
+                    break;
+                }
+                addition(currentPool, canAdd, temp);
+
+            }
+            currentPool.clear();
+            canAdd.clear();
+            if(!draw(attacker) && attacker.getCards().size() == 0)
+                return attacker;
+            if(!draw(defender) && attacker.getCards().size() == 0)
+                return defender;
+        }
     }
 }

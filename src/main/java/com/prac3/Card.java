@@ -43,7 +43,7 @@ public class Card {
     }
 
     public Integer getValue() {
-        return value;
+        return this.value;
     }
     public void setTrumpSuit(){
         this.value+=100;

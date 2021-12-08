@@ -178,5 +178,6 @@ public class TDDDurak {
         values.add(10);
         assertEquals(test.get(0), durak.anotherAttack(player1, values, attack));
     }
+
 }
 
