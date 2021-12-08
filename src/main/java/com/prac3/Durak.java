@@ -188,7 +188,6 @@ public class Durak {
             values.add(temp.getValue());
         }
     }
-
     public Player game(Player player1, Player player2){
         this.randomizeDeck();
         this.setTrump();
@@ -226,7 +225,7 @@ public class Durak {
                 currentPool.clear();
                 canAdd.clear();
             }
-            while(table < max_table){
+            while(table <= max_table){
                 temp = anotherAttack(attacker,canAdd, currentPool);
                 if(temp == null){
                     i++;
